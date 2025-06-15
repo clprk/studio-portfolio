@@ -1,4 +1,5 @@
+import { experienceType } from './experienceType'
 import {postType} from './postType'
 import { workType } from './workType'
 
-export const schemaTypes = [postType, workType]
+export const schemaTypes = [postType, workType, experienceType,]
