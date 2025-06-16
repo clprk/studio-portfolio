@@ -44,11 +44,42 @@ export const workType = defineType({
       of: [{type: 'string'}],
     }),
     defineField({
+      name: 'headline',
+      type: 'string',
+    }),
+    defineField({
+      name: 'summary',
+      type: 'array',
+      of: [
+        {type: 'block',}, 
+      ]
+    }),
+    defineField({
+      name: 'role',
+      type: 'string',
+    }),
+    defineField({
+      name: 'timeline',
+      type: 'string',
+    }),
+    defineField({
       name: 'body',
       type: 'array',
       of: [
         {type: 'block',}, 
-        { type: 'image' },
+        {
+          type: 'image',
+          options: {
+            hotspot: true
+          },
+          fields: [
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text'
+            }
+          ]
+        }
       ],
     }),
   ],
