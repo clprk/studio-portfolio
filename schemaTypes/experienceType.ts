@@ -6,21 +6,21 @@ export const experienceType = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'Company',
+      name: 'order',
+      type: 'number',
+    }),
+    defineField({
+      name: 'company',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
     defineField({
-        name: 'Role',
+        name: 'role',
         type: 'string',
       }),
     defineField({
-        name: 'startDate',
-        type: 'date',
-    }),
-    defineField({
-        name: 'endDate',
-        type: 'datetime',
+        name: 'dates',
+        type: 'string',
     }),
     defineField({
       name: 'description',
