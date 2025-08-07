@@ -1,24 +1,19 @@
 import {defineField, defineType} from 'sanity'
 
 export const workType = defineType({
+  // Work - Case Study
   name: 'work',
   title: 'Work',
   type: 'document',
   fields: [
-    defineField({
-      name: 'title',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'slug',
-      type: 'slug',
-      options: {source: 'title'},
-      validation: (rule) => rule.required(),
-    }),
+    // Identifying Fields
     defineField({
       name: 'order',
       type: 'number',
+    }),
+    defineField({
+      name: 'title',
+      type: 'string',
     }),
     defineField({
       name: 'description',
@@ -44,6 +39,11 @@ export const workType = defineType({
       of: [{type: 'string'}],
     }),
     defineField({
+      name: 'slug',
+      type: 'slug',
+      options: {source: 'title'},
+    }),
+    defineField({
       name: 'headline',
       type: 'string',
     }),
@@ -62,13 +62,14 @@ export const workType = defineType({
       name: 'timeline',
       type: 'string',
     }),
+    // Body of Case Study
     defineField({
       name: 'body',
       type: 'array',
-      title: 'Content Blocks',
-      description: 'Drag and drop to reorder content blocks',
+      title: 'Body',
       of: [
         {
+          // Image Block
           type: 'object',
           name: 'imageBlock',
           title: 'Image Block',
@@ -77,7 +78,6 @@ export const workType = defineType({
               name: 'heading',
               type: 'string',
               title: 'Heading',
-              description: 'Optional heading for this image block',
             },
             {
               name: 'image',
@@ -90,21 +90,19 @@ export const workType = defineType({
                 {
                   name: 'alt',
                   type: 'string',
-                  title: 'Alternative text'
+                  title: 'Alt text'
                 }
               ],
-              validation: (rule) => rule.required()
             },
             {
               name: 'caption',
               type: 'string',
               title: 'Caption',
-              description: 'Optional caption for the image'
             },
             {
               name: 'dark',
               type: 'boolean',
-              title: 'Dark?'
+              title: 'Dark Mode'
             },
           ],
           initialValue: {
@@ -113,19 +111,18 @@ export const workType = defineType({
           preview: {
             select: {
               title: 'heading',
-              subtitle: 'caption',
               media: 'image'
             },
-            prepare({title, subtitle, media}) {
+            prepare({title, media}) {
               return {
-                title: title || 'Image Block',
-                subtitle: subtitle || 'No caption',
+                title: title || '/ Image Block /',
                 media: media
               }
             }
           }
         },
         {
+          // Text Block
           type: 'object',
           name: 'textBlock',
           title: 'Text Block',
@@ -134,19 +131,17 @@ export const workType = defineType({
               name: 'heading',
               type: 'string',
               title: 'Heading',
-              description: 'Optional heading for this text block'
             },
             {
               name: 'content',
               type: 'array',
               title: 'Content',
               of: [{type: 'block'}],
-              validation: (rule) => rule.required()
             },
             {
               name: 'dark',
               type: 'boolean',
-              title: 'Dark?'
+              title: 'Dark Mode'
             },
           ],
           initialValue: {
@@ -157,32 +152,23 @@ export const workType = defineType({
               title: 'heading',
               subtitle: 'content'
             },
-            prepare({title, subtitle}) {
-              const block = (subtitle || []).find((block: any) => block._type === 'block')
-              const content = block
-                ? block.children
-                    ?.filter((child: any) => child._type === 'span')
-                    ?.map((span: any) => span.text)
-                    ?.join('')
-                : 'No content'
-              
+            prepare({title}) {
               return {
-                title: title || 'Text Block',
-                subtitle: content ? content.substring(0, 100) + '...' : 'No content'
+                title: title || '/ Text Block /',
               }
             }
           }
         },
         {
+          // Grid Block
           type: 'object',
           name: 'gridBlock',
-          title: 'Grid Layout',
+          title: 'Grid Block',
           fields: [
             {
               name: 'heading',
               type: 'string',
               title: 'Heading',
-              description: 'Optional heading for this grid section'
             },
             {
               name: 'columns',
@@ -195,7 +181,6 @@ export const workType = defineType({
                   { title: '4 Columns', value: '4' }
                 ]
               },
-              validation: (rule) => rule.required()
             },
             {
               name: 'items',
@@ -203,6 +188,7 @@ export const workType = defineType({
               title: 'Grid Items',
               of: [
                 {
+                  // Grid Item
                   type: 'object',
                   name: 'gridItem',
                   title: 'Grid Item',
@@ -217,7 +203,6 @@ export const workType = defineType({
                           { title: 'Image', value: 'image' }
                         ]
                       },
-                      validation: (rule) => rule.required()
                     },
                     {
                       name: 'subtitle',
@@ -227,7 +212,7 @@ export const workType = defineType({
                     {
                       name: 'content',
                       type: 'array',
-                      title: 'Text Content',
+                      title: 'Content',
                       of: [{type: 'block'}],
                       hidden: ({ parent }) => parent?.type !== 'text'
                     },
@@ -242,7 +227,7 @@ export const workType = defineType({
                         {
                           name: 'alt',
                           type: 'string',
-                          title: 'Alternative text'
+                          title: 'Alt text'
                         }
                       ],
                       hidden: ({ parent }) => parent?.type !== 'image'
@@ -251,7 +236,6 @@ export const workType = defineType({
                       name: 'caption',
                       type: 'string',
                       title: 'Caption',
-                      description: 'Optional caption'
                     }
                   ],
                   preview: {
@@ -262,38 +246,22 @@ export const workType = defineType({
                       caption: 'caption',
                       media: 'image'
                     },
-                    prepare({ type, subtitle, content, caption, media }) {
-                      const title = subtitle || `${type === 'text' ? 'Text' : 'Image'} Item`;
-                      let subtitleText = '';
-                      
-                      if (type === 'text' && content) {
-                        const block = content.find((block: any) => block._type === 'block');
-                        subtitleText = block
-                          ? block.children
-                              ?.filter((child: any) => child._type === 'span')
-                              ?.map((span: any) => span.text)
-                              ?.join('')
-                              ?.substring(0, 50) + '...'
-                          : '';
-                      } else if (type === 'image') {
-                        subtitleText = 'Image item';
-                      }
+                    prepare({ type, subtitle, media }) {
+                      const title = subtitle || `/ ${type === 'text' ? 'Text' : 'Image'} Item /`;
 
                       return {
                         title,
-                        subtitle: subtitleText,
                         media: type === 'image' ? media : undefined
                       };
                     }
                   }
                 }
               ],
-              validation: (rule) => rule.min(1).max(12)
             },
             {
               name: 'dark',
               type: 'boolean',
-              title: 'Dark?'
+              title: 'Dark Mode'
             },
           ],
           initialValue: {
@@ -305,11 +273,9 @@ export const workType = defineType({
               columns: 'columns',
               items: 'items'
             },
-            prepare({ heading, columns, items }) {
-              const itemCount = items ? items.length : 0;
+            prepare({ heading, columns }) {
               return {
-                title: heading || `${columns}-Column Grid`,
-                subtitle: `${itemCount} items in ${columns} columns`
+                title: heading || `/ ${columns}-Column Grid /`,
               };
             }
           }
