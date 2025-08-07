@@ -236,6 +236,7 @@ export const workType = defineType({
                       name: 'caption',
                       type: 'string',
                       title: 'Caption',
+                      hidden: ({ parent }) => parent?.type !== 'image'
                     }
                   ],
                   preview: {
