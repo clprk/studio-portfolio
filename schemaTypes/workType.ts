@@ -77,7 +77,7 @@ export const workType = defineType({
               name: 'heading',
               type: 'string',
               title: 'Heading',
-              description: 'Optional heading for this image block'
+              description: 'Optional heading for this image block',
             },
             {
               name: 'image',
@@ -100,8 +100,16 @@ export const workType = defineType({
               type: 'string',
               title: 'Caption',
               description: 'Optional caption for the image'
-            }
+            },
+            {
+              name: 'dark',
+              type: 'boolean',
+              title: 'Dark?'
+            },
           ],
+          initialValue: {
+            dark: false
+          },
           preview: {
             select: {
               title: 'heading',
@@ -134,8 +142,16 @@ export const workType = defineType({
               title: 'Content',
               of: [{type: 'block'}],
               validation: (rule) => rule.required()
-            }
+            },
+            {
+              name: 'dark',
+              type: 'boolean',
+              title: 'Dark?'
+            },
           ],
+          initialValue: {
+            dark: false
+          },
           preview: {
             select: {
               title: 'heading',
@@ -273,8 +289,16 @@ export const workType = defineType({
                 }
               ],
               validation: (rule) => rule.min(1).max(12)
-            }
+            },
+            {
+              name: 'dark',
+              type: 'boolean',
+              title: 'Dark?'
+            },
           ],
+          initialValue: {
+            dark: false
+          },
           preview: {
             select: {
               heading: 'heading',
