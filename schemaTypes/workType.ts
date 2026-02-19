@@ -23,7 +23,7 @@ export const workType = defineType({
       name: 'image',
       type: 'image',
       options: {
-        hotspot: true
+        hotspot: true,
       },
       fields: [
         {
@@ -50,13 +50,12 @@ export const workType = defineType({
     defineField({
       name: 'summary',
       type: 'array',
-      of: [
-        {type: 'block',}, 
-      ]
+      of: [{type: 'block'}],
     }),
     defineField({
       name: 'role',
-      type: 'string',
+      type: 'array',
+      of: [{type: 'string'}],
     }),
     defineField({
       name: 'timeline',
@@ -84,14 +83,14 @@ export const workType = defineType({
               type: 'image',
               title: 'Image',
               options: {
-                hotspot: true
+                hotspot: true,
               },
               fields: [
                 {
                   name: 'alt',
                   type: 'string',
-                  title: 'Alt text'
-                }
+                  title: 'Alt text',
+                },
               ],
             },
             {
@@ -102,24 +101,24 @@ export const workType = defineType({
             {
               name: 'dark',
               type: 'boolean',
-              title: 'Dark Mode'
+              title: 'Dark Mode',
             },
           ],
           initialValue: {
-            dark: false
+            dark: false,
           },
           preview: {
             select: {
               title: 'heading',
-              media: 'image'
+              media: 'image',
             },
             prepare({title, media}) {
               return {
                 title: title || '/ Image Block /',
-                media: media
+                media: media,
               }
-            }
-          }
+            },
+          },
         },
         {
           // Text Block
@@ -141,23 +140,29 @@ export const workType = defineType({
             {
               name: 'dark',
               type: 'boolean',
-              title: 'Dark Mode'
+              title: 'Dark Mode',
+            },
+            {
+              name: 'header',
+              type: 'boolean',
+              title: 'Section Header',
             },
           ],
           initialValue: {
-            dark: false
+            dark: false,
+            header: false,
           },
           preview: {
             select: {
               title: 'heading',
-              subtitle: 'content'
+              subtitle: 'content',
             },
             prepare({title}) {
               return {
                 title: title || '/ Text Block /',
               }
-            }
-          }
+            },
+          },
         },
         {
           // Grid Block
@@ -176,10 +181,10 @@ export const workType = defineType({
               title: 'Number of Columns',
               options: {
                 list: [
-                  { title: '2 Columns', value: '2' },
-                  { title: '3 Columns', value: '3' },
-                  { title: '4 Columns', value: '4' }
-                ]
+                  {title: '2 Columns', value: '2'},
+                  {title: '3 Columns', value: '3'},
+                  {title: '4 Columns', value: '4'},
+                ],
               },
             },
             {
@@ -199,9 +204,9 @@ export const workType = defineType({
                       title: 'Item Type',
                       options: {
                         list: [
-                          { title: 'Text', value: 'text' },
-                          { title: 'Image', value: 'image' }
-                        ]
+                          {title: 'Text', value: 'text'},
+                          {title: 'Image', value: 'image'},
+                        ],
                       },
                     },
                     {
@@ -214,30 +219,30 @@ export const workType = defineType({
                       type: 'array',
                       title: 'Content',
                       of: [{type: 'block'}],
-                      hidden: ({ parent }) => parent?.type !== 'text'
+                      hidden: ({parent}) => parent?.type !== 'text',
                     },
                     {
                       name: 'image',
                       type: 'image',
                       title: 'Image',
                       options: {
-                        hotspot: true
+                        hotspot: true,
                       },
                       fields: [
                         {
                           name: 'alt',
                           type: 'string',
-                          title: 'Alt text'
-                        }
+                          title: 'Alt text',
+                        },
                       ],
-                      hidden: ({ parent }) => parent?.type !== 'image'
+                      hidden: ({parent}) => parent?.type !== 'image',
                     },
                     {
                       name: 'caption',
                       type: 'string',
                       title: 'Caption',
-                      hidden: ({ parent }) => parent?.type !== 'image'
-                    }
+                      hidden: ({parent}) => parent?.type !== 'image',
+                    },
                   ],
                   preview: {
                     select: {
@@ -245,42 +250,42 @@ export const workType = defineType({
                       subtitle: 'subtitle',
                       content: 'content',
                       caption: 'caption',
-                      media: 'image'
+                      media: 'image',
                     },
-                    prepare({ type, subtitle, media }) {
-                      const title = subtitle || `/ ${type === 'text' ? 'Text' : 'Image'} Item /`;
+                    prepare({type, subtitle, media}) {
+                      const title = subtitle || `/ ${type === 'text' ? 'Text' : 'Image'} Item /`
 
                       return {
                         title,
-                        media: type === 'image' ? media : undefined
-                      };
-                    }
-                  }
-                }
+                        media: type === 'image' ? media : undefined,
+                      }
+                    },
+                  },
+                },
               ],
             },
             {
               name: 'dark',
               type: 'boolean',
-              title: 'Dark Mode'
+              title: 'Dark Mode',
             },
           ],
           initialValue: {
-            dark: false
+            dark: false,
           },
           preview: {
             select: {
               heading: 'heading',
               columns: 'columns',
-              items: 'items'
+              items: 'items',
             },
-            prepare({ heading, columns }) {
+            prepare({heading, columns}) {
               return {
                 title: heading || `/ ${columns}-Column Grid /`,
-              };
-            }
-          }
-        }
+              }
+            },
+          },
+        },
       ],
     }),
   ],
