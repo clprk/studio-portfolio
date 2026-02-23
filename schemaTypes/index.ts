@@ -1,5 +1,7 @@
-import { workType } from './workType'
-import { experienceType } from './experienceType'
-import { assetType } from './assetType'
+import {workType} from './workType'
+import {assetType} from './assetType'
+import {homeType} from './homeType'
+import {aboutType} from './aboutType'
+import {resumeType} from './resumeType'
 
-export const schemaTypes = [workType, experienceType, assetType,]
+export const schemaTypes = [homeType, workType, aboutType, resumeType, assetType]

@@ -138,14 +138,14 @@ export const workType = defineType({
               of: [{type: 'block'}],
             },
             {
-              name: 'dark',
-              type: 'boolean',
-              title: 'Dark Mode',
-            },
-            {
               name: 'header',
               type: 'boolean',
               title: 'Section Header',
+            },
+            {
+              name: 'dark',
+              type: 'boolean',
+              title: 'Dark Mode',
             },
           ],
           initialValue: {
@@ -155,11 +155,17 @@ export const workType = defineType({
           preview: {
             select: {
               title: 'heading',
-              subtitle: 'content',
+              header: 'header',
             },
-            prepare({title}) {
-              return {
-                title: title || '/ Text Block /',
+            prepare({title, header}) {
+              if (header) {
+                return {
+                  title: `📌 ${title || 'Section Header'}`,
+                }
+              } else {
+                return {
+                  title: title || '/ Text Block /',
+                }
               }
             },
           },
