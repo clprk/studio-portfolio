@@ -69,19 +69,29 @@ export const workType = defineType({
       of: [
         {
           // Image Block
-          type: 'object',
           name: 'imageBlock',
-          title: 'Image Block',
+          type: 'object',
           fields: [
             {
               name: 'heading',
               type: 'string',
-              title: 'Heading',
+            },
+            {
+              name: 'caption',
+              type: 'string',
+            },
+            {
+              name: 'mediaType',
+              type: 'string',
+              options: {
+                list: ['image', 'video'],
+                layout: 'radio',
+              },
             },
             {
               name: 'image',
               type: 'image',
-              title: 'Image',
+              hidden: ({parent}: any) => parent?.mediaType !== 'image',
               options: {
                 hotspot: true,
               },
@@ -89,19 +99,18 @@ export const workType = defineType({
                 {
                   name: 'alt',
                   type: 'string',
-                  title: 'Alt text',
                 },
               ],
             },
             {
-              name: 'caption',
-              type: 'string',
-              title: 'Caption',
+              name: 'video',
+              type: 'file',
+              options: {accept: 'video/webm,video/mp4'},
+              hidden: ({parent}: any) => parent?.mediaType !== 'video',
             },
             {
               name: 'dark',
               type: 'boolean',
-              title: 'Dark Mode',
             },
           ],
           initialValue: {

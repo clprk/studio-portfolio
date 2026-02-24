@@ -8,45 +8,37 @@ export const aboutType = defineType({
     defineField({
       name: 'header',
       type: 'string',
-      title: 'Header',
     }),
     defineField({
-      name: 'leftTinyText',
+      name: 'leftText',
       type: 'string',
-      title: 'Left Text',
     }),
     defineField({
-      name: 'centerTinyText',
+      name: 'centerText',
       type: 'string',
-      title: 'Center Text',
     }),
     defineField({
-      name: 'rightTinyText',
+      name: 'rightText',
       type: 'string',
-      title: 'Right Text',
     }),
     defineField({
       name: 'profileImage',
       type: 'image',
-      title: 'Profile Image',
       options: {hotspot: true},
       fields: [{name: 'alt', type: 'string', title: 'Alt Text'}],
     }),
     defineField({
       name: 'summary',
       type: 'array',
-      title: 'Summary',
       of: [{type: 'block'}],
     }),
     defineField({
       name: 'favorites',
       type: 'array',
-      title: 'Favorites',
       of: [{type: 'string'}],
     }),
     defineField({
       name: 'experience',
-      title: 'Experience',
       type: 'array',
       of: [
         {
