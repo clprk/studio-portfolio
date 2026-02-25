@@ -16,10 +16,6 @@ export const workType = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'description',
-      type: 'string',
-    }),
-    defineField({
       name: 'image',
       type: 'image',
       options: {
@@ -32,6 +28,16 @@ export const workType = defineType({
           title: 'Alt text',
         },
       ],
+    }),
+    defineField({
+      name: 'video',
+      type: 'string',
+      title: 'Video',
+    }),
+    defineField({
+      name: 'alt',
+      type: 'string',
+      title: 'Alt text',
     }),
     defineField({
       name: 'tags',
@@ -104,9 +110,15 @@ export const workType = defineType({
             },
             {
               name: 'video',
-              type: 'file',
-              options: {accept: 'video/webm,video/mp4'},
+              type: 'string',
+              title: 'Video Filepath',
               hidden: ({parent}: any) => parent?.mediaType !== 'video',
+            },
+            {
+              name: 'alt',
+              type: 'string',
+              title: 'Alt text',
+              hidden: ({parent}) => parent?.mediaType !== 'video',
             },
             {
               name: 'dark',
@@ -221,6 +233,7 @@ export const workType = defineType({
                         list: [
                           {title: 'Text', value: 'text'},
                           {title: 'Image', value: 'image'},
+                          {title: 'Video', value: 'video'},
                         ],
                       },
                     },
@@ -253,10 +266,22 @@ export const workType = defineType({
                       hidden: ({parent}) => parent?.type !== 'image',
                     },
                     {
+                      name: 'video',
+                      type: 'string',
+                      title: 'Video',
+                      hidden: ({parent}) => parent?.type !== 'video',
+                    },
+                    {
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alt text',
+                      hidden: ({parent}) => parent?.type !== 'video',
+                    },
+                    {
                       name: 'caption',
                       type: 'string',
                       title: 'Caption',
-                      hidden: ({parent}) => parent?.type !== 'image',
+                      hidden: ({parent}) => parent?.type !== 'image' || parent?.type !== 'video',
                     },
                   ],
                   preview: {

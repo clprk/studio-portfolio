@@ -14,7 +14,23 @@ export const homeType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'currentCompany',
+      type: 'string',
+    }),
+    defineField({
+      name: 'currentUrl',
+      type: 'string',
+    }),
+    defineField({
       name: 'previousRole',
+      type: 'string',
+    }),
+    defineField({
+      name: 'previousCompany',
+      type: 'string',
+    }),
+    defineField({
+      name: 'previousUrl',
       type: 'string',
     }),
     defineField({
