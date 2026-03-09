@@ -10,8 +10,17 @@ export const assetType = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'type',
+      type: 'string',
+      options: {
+        list: ['image', 'url', 'file'],
+        layout: 'radio',
+      },
+    }),
+    defineField({
       name: 'image',
       type: 'image',
+      hidden: ({parent}: any) => parent?.type !== 'image',
       options: {
         hotspot: true,
       },
@@ -22,6 +31,19 @@ export const assetType = defineType({
           title: 'Alt text',
         },
       ],
+    }),
+    defineField({
+      name: 'url',
+      type: 'url',
+      hidden: ({parent}: any) => parent?.type !== 'url',
+    }),
+    defineField({
+      name: 'file',
+      type: 'file',
+      hidden: ({parent}: any) => parent?.type !== 'file',
+      options: {
+        accept: '.pdf',
+      },
     }),
   ],
 })

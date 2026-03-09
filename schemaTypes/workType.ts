@@ -8,12 +8,17 @@ export const workType = defineType({
   fields: [
     // Identifying Fields
     defineField({
+      name: 'title',
+      type: 'string',
+    }),
+    defineField({
       name: 'order',
       type: 'number',
     }),
     defineField({
-      name: 'title',
-      type: 'string',
+      name: 'selected',
+      type: 'boolean',
+      initialValue: false,
     }),
     defineField({
       name: 'image',
@@ -35,11 +40,6 @@ export const workType = defineType({
       title: 'Video',
     }),
     defineField({
-      name: 'alt',
-      type: 'string',
-      title: 'Alt text',
-    }),
-    defineField({
       name: 'tags',
       type: 'array',
       of: [{type: 'string'}],
@@ -48,6 +48,10 @@ export const workType = defineType({
       name: 'slug',
       type: 'slug',
       options: {source: 'title'},
+    }),
+    defineField({
+      name: 'link',
+      type: 'url',
     }),
     defineField({
       name: 'headline',
