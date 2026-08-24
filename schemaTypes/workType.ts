@@ -114,8 +114,8 @@ export const workType = defineType({
             },
             {
               name: 'video',
-              type: 'string',
-              title: 'Video Filepath',
+              type: 'mux.video',
+              title: 'Video',
               hidden: ({parent}: any) => parent?.mediaType !== 'video',
             },
             {
